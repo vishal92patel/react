@@ -1,26 +1,21 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import userStore from '../redux/userStore';
+import userListStore  from '../redux/userListStore';
 
 class Signup extends React.Component {
-	constructor(prop) {
-		super(prop);
-		console.log(prop);
-		console.log(this);
+	constructor(props) {
+		super();
 		this['state'] = {
-			name: '',
-			username: '',
-			password: '',
+			name: 'Vishal Patel',
+			username: 'vishal',
+			password: 'patel',
 			accountCreated: false
 		}
-		userStore.subscribe(() => {
-			console.log(userStore.getState());
-		});
 	}
 
 	getName = (e) => {
 		var name = e.target.value;
-		this['setState']((state, prop) => {
+		this['setState']((state, props) => {
 			return { name, accountCreated: false };
 		});
 	};
@@ -43,7 +38,7 @@ class Signup extends React.Component {
 			password: this['state'].password
 		}
 		if (this['state'].name && this['state'].username && this['state'].password) {
-			userStore.dispatch({ type: 'addNewUser', newUser });
+			userListStore.dispatch({ type: 'addNewUser', newUser });
 			this['setState'](() => {
 				return { name: '', username: '', password: '', accountCreated: true };
 			});

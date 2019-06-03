@@ -1,12 +1,27 @@
 import React from 'react';
+import loggedInUser from '../redux/loggedInUser';
 
-function Header() {
-	return (
-		<>
-		<h3>MyNotes</h3>
-		<hr/>
-		</>
-	);
+class Header extends React.Component {
+	constructor(props) {
+		super();
+		this['state'] = { loggedInUserData: [{ name: '' }] };
+		loggedInUser.subscribe(() => {
+			this['setState'](() => {
+				return { loggedInUserData: loggedInUser.getState() }
+			});
+		});
+	}
+
+	render() {
+		return (
+			<>
+				<h3>MyNotes</h3>
+				{this['state'].loggedInUserData[0].name ? 'Welcome ' : null}
+				<b><u>{this['state'].loggedInUserData[0].name}</u></b>
+				<hr />
+			</>
+		)
+	}
 
 }
 

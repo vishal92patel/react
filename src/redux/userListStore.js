@@ -1,13 +1,12 @@
 import { createStore } from 'redux';
 
-var users = [];
-function userStore(state = users, action) {
+const userListStore = ((state = [], action) => {
 	switch (action.type) {
 		case 'addNewUser':
 			return [...state, action.newUser]
 		default:
 			return state
 	}
-}
+});
 
-export default createStore(userStore);
+export default createStore(userListStore);

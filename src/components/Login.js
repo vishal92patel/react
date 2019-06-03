@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import userStore from '../redux/userStore';
+import userListStore from '../redux/userListStore';
+import loggedInUser from '../redux/loggedInUser';
 
 class Login extends React.Component {
-	constructor(prop) {
-		super(prop);
-		console.log(userStore.getState());
+	constructor(props) {
+		super(props);
 		this['state'] = {
-			username: '',
-			password: '',
+			username: 'vishal',
+			password: 'patel',
 			loggedInUserData: null
 		}
 	}
@@ -39,15 +39,19 @@ class Login extends React.Component {
 			username: this['state'].username,
 			password: this['state'].password
 		}
+		let user = this.validateUser(data);
 		this['setState'](() => {
 			return {
-				loggedInUserData: this.validateUser(data)
+				loggedInUserData: user
 			};
 		});
-		this.validateUser(data);
+		if (user && user.length && user.length === 1) {
+			loggedInUser.dispatch({ type: 'getLoggedInUser', user: user });
+			this.props.history.push('/dashboard');
+		}
 	}
 	validateUser(data) {
-		return userStore.getState().filter((e) => {
+		return userListStore.getState().filter((e) => {
 			if ((e.username === data.username) && (e.password === data.password)) {
 				return true;
 			} else {

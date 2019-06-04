@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import userListStore from '../redux/userListStore';
 import loggedInUser from '../redux/loggedInUser';
+import { commonService } from '../services/CommonService';
 
 class Login extends React.Component {
 	constructor(props) {
@@ -11,6 +12,7 @@ class Login extends React.Component {
 			password: 'patel',
 			loggedInUserData: null
 		}
+		commonService.logout();
 	}
 	getUsername = (e) => {
 		let username = e.target.value;

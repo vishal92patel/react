@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import userListStore from '../redux/userListStore';
+import { commonService } from '../services/CommonService';
 
 class Signup extends React.Component {
 	unsubscribeUserListStore;
@@ -15,6 +16,7 @@ class Signup extends React.Component {
 		this.unsubscribeUserListStore = userListStore.subscribe(() => {
 			localStorage.setItem('userList', JSON.stringify(userListStore.getState()));
 		});
+		commonService.logout();
 	}
 
 	getName = (e) => {

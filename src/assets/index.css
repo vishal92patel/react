@@ -1,3 +1,10 @@
 body {
 	text-align: center;
 }
+.dashboard-title {
+	margin-left: 10px;
+	margin-right: 10px;
+	display: inline-block;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}

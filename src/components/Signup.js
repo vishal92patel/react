@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import userListStore  from '../redux/userListStore';
+import userListStore from '../redux/userListStore';
 
 class Signup extends React.Component {
+	unsubscribeUserListStore;
 	constructor(props) {
 		super();
 		this['state'] = {
@@ -11,6 +12,9 @@ class Signup extends React.Component {
 			password: 'patel',
 			accountCreated: false
 		}
+		this.unsubscribeUserListStore = userListStore.subscribe(() => {
+			localStorage.setItem('userList', JSON.stringify(userListStore.getState()));
+		});
 	}
 
 	getName = (e) => {
@@ -48,6 +52,9 @@ class Signup extends React.Component {
 			});
 		}
 
+	}
+	componentWillUnmount() {
+		this.unsubscribeUserListStore();
 	}
 	render() {
 		return (

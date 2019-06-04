@@ -47,7 +47,8 @@ class Login extends React.Component {
 		});
 		if (user && user.length && user.length === 1) {
 			loggedInUser.dispatch({ type: 'getLoggedInUser', user: user });
-			this.props.history.push('/dashboard');
+			localStorage.setItem('loggedInUser', JSON.stringify(user));
+			this['props'].history.push('/dashboard');
 		}
 	}
 	validateUser(data) {

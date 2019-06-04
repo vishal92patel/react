@@ -1,6 +1,6 @@
 import { createStore } from 'redux';
-
-const userListStore = ((state = [], action) => {
+let defaultUserState = [];
+const userListStore = ((state = defaultUserState, action) => {
 	switch (action.type) {
 		case 'addNewUser':
 			return [...state, action.newUser]
@@ -9,4 +9,11 @@ const userListStore = ((state = [], action) => {
 	}
 });
 
+const getUserListFromLocalStorage = () => {
+	let userList = localStorage.getItem('userList');
+	if (userList && JSON.parse(userList)) {
+		defaultUserState = JSON.parse(userList);
+	}
+}
+getUserListFromLocalStorage();
 export default createStore(userListStore);
